@@ -48,8 +48,14 @@ jobs:
       - name: Deploy
         id: deploy
         run: |
+          # Without pipefail the exit status would be tee's, hiding a failed deploy.
+          set -o pipefail
           npx wrangler deploy 2>&1 | tee deploy.log
           url=$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' deploy.log | head -n1)
+          if [[ -z "$url" ]]; then
+            echo "deploy produced no workers.dev URL" >&2
+            exit 1
+          fi
           echo "url=$url" >> "$GITHUB_OUTPUT"
 
       - name: Smoke test
