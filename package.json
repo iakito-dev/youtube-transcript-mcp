@@ -1,0 +1,23 @@
+{
+  "name": "youtube-transcript-mcp",
+  "version": "1.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "cf-typegen": "wrangler types",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "url-parse": "^1.5.10",
+    "youtube-transcript": "^1.2.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260918.1",
+    "@types/url-parse": "^1.4.11",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.18.0"
+  }
+}

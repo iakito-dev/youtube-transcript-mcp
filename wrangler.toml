@@ -1,0 +1,15 @@
+name = "youtube-transcript-mcp"
+main = "src/index.ts"
+compatibility_date = "2025-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Transcript cache + request analytics.
+# Create your own namespace before the first deploy:
+#   npx wrangler kv namespace create TRANSCRIPT_CACHE
+# then paste the printed id below.
+[[kv_namespaces]]
+binding = "TRANSCRIPT_CACHE"
+id = "<run: npx wrangler kv namespace create TRANSCRIPT_CACHE>"
+
+[observability]
+enabled = true
