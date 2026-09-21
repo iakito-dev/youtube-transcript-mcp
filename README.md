@@ -57,6 +57,15 @@ npm run deploy
 ### 動作確認
 
 ```bash
+./scripts/smoke-test.sh https://<あなたのURL>
+```
+
+MCP ハンドシェイク3項目と、実際の字幕取得を順に検証します。ハンドシェイクが通って字幕取得だけ失敗する場合は、デプロイは成功していて YouTube 側が Workers の IP を拒否している、という切り分けになります。
+
+手動で確認する場合:
+
+
+```bash
 curl -X POST https://<あなたのURL>/mcp \
   -H 'Content-Type: application/json' \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
