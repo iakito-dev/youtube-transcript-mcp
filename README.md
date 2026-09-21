@@ -32,7 +32,17 @@ Cloudflare Workers 無料プランのサブリクエスト上限は50なので�
 
 ## デプロイ手順
 
-Cloudflare アカウントが必要です。
+Cloudflare アカウントが必要です。GitHub Actions 経由（手元に何も入れずに済む）と、手元で実行する方法の2通りあります。
+
+### 方法A: GitHub Actions（推奨）
+
+1. Cloudflare の [API トークン作成画面](https://dash.cloudflare.com/profile/api-tokens) で "Edit Cloudflare Workers" テンプレートからトークンを作成します。必要な権限は **Workers Scripts:Edit** と **Workers KV Storage:Edit** です。
+2. このリポジトリの Settings → Secrets and variables → Actions で、`CLOUDFLARE_API_TOKEN` として登録します。アカウントを複数お持ちの場合は `CLOUDFLARE_ACCOUNT_ID` も登録してください。
+3. Actions タブ → "Deploy to Cloudflare Workers" → Run workflow。
+
+KV namespace の作成と `wrangler.toml` への id 反映はワークフローが自動で行うので、手動編集は不要です。デプロイ後はスモークテストまで自動実行され、払い出された URL が実行サマリに表示されます。以降 `main` への push でも自動デプロイされます。
+
+### 方法B: 手元で実行する
 
 ```bash
 git clone https://github.com/iakito-dev/youtube-transcript-mcp

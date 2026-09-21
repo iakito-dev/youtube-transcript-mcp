@@ -2,6 +2,7 @@ name = "youtube-transcript-mcp"
 main = "src/index.ts"
 compatibility_date = "2025-09-01"
 compatibility_flags = ["nodejs_compat"]
+workers_dev = true
 
 # Transcript cache + request analytics.
 # Create your own namespace before the first deploy:
