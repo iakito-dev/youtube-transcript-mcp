@@ -41,6 +41,28 @@ check() {
 
 echo "target: $BASE"
 echo
+
+# A fresh deploy takes a few seconds to reach the edge, so wait for the new
+# code to answer before asserting anything; otherwise the previous version
+# fails the checks and looks like a real regression.
+echo "waiting for the deployment to become live"
+ready=0
+for _ in $(seq 1 30); do
+  if curl -sS --max-time 10 "$BASE/" 2>/dev/null | grep -q 'YouTube Transcript Remote MCP Server'; then
+    ready=1
+    break
+  fi
+  sleep 2
+done
+
+if [[ $ready -eq 0 ]]; then
+  echo "  FAIL  the worker never reported the expected server identity"
+  echo "        last response: $(curl -sS --max-time 10 "$BASE/" 2>/dev/null | head -c 200)"
+  exit 1
+fi
+echo "  ok    deployment is live"
+
+echo
 echo "MCP handshake"
 
 check "initialize" \
